@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Prepare mock host mounts
+        run: |
+          mkdir -p "$HOME/.codex" /tmp/agents-skills
+          touch "$HOME/.codex/auth.json"
+          chmod 600 "$HOME/.codex/auth.json"
+          echo "AGENTS_SKILLS_DIR=/tmp/agents-skills" >> "$GITHUB_ENV"
+      - name: Install Dev Container CLI
+        run: npm install --global @devcontainers/cli
+      - name: Test Feature
+        run: devcontainer features test --features codex-secure --skip-scenarios .

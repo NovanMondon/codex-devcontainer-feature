@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - ".github/workflows/release.yaml"
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Prepare mock host mounts
+        run: |
+          mkdir -p "$HOME/.codex" /tmp/agents-skills
+          touch "$HOME/.codex/auth.json"
+          chmod 600 "$HOME/.codex/auth.json"
+          echo "AGENTS_SKILLS_DIR=/tmp/agents-skills" >> "$GITHUB_ENV"
+      - name: Test Feature
+        run: |
+          npm install --global @devcontainers/cli
+          devcontainer features test --features codex-secure --skip-scenarios .
+      - name: Publish Feature collection
+        uses: devcontainers/action@v1
+        with:
+          publish-features: "true"
+          base-path-to-features: "./src"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
