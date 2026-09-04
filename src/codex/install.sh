@@ -21,7 +21,9 @@ esac
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y --no-install-recommends \
-  bubblewrap
+  bubblewrap \
+  ca-certificates \
+  curl
 rm -rf /var/lib/apt/lists/*
 
 bwrap_path="$(command -v bwrap)"

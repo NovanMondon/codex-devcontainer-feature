@@ -3,6 +3,7 @@ set -euo pipefail
 
 command -v bwrap
 test -u "$(command -v bwrap)"
+command -v curl
 test "${CODEX_HOME:-}" = "/var/lib/codex-home"
 test -f "$CODEX_HOME/auth.json"
 test -r "$CODEX_HOME/auth.json"
