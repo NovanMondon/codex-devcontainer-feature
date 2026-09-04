@@ -14,7 +14,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4 # Node <- Dev Container CLI to test the feature
         with:
           node-version: "22"
       - name: Prepare mock authentication
@@ -25,4 +25,4 @@ jobs:
       - name: Install Dev Container CLI
         run: npm install --global @devcontainers/cli
       - name: Test Feature
-        run: devcontainer features test --features codex --skip-scenarios .
+        run: devcontainer features test --project-folder . --features codex --skip-scenarios

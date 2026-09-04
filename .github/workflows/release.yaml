@@ -15,9 +15,10 @@ jobs:
     permissions:
       contents: write
       packages: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4 # Node <- Dev Container CLI to test the feature
         with:
           node-version: "22"
       - name: Prepare mock authentication
@@ -28,7 +29,7 @@ jobs:
       - name: Test Feature
         run: |
           npm install --global @devcontainers/cli
-          devcontainer features test --features codex --skip-scenarios .
+          devcontainer features test --project-folder . --features codex --skip-scenarios
       - name: Publish Feature collection
         uses: devcontainers/action@v1
         with:
