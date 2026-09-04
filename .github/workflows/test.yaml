@@ -17,13 +17,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Prepare mock host mounts
+      - name: Prepare mock authentication
         run: |
-          mkdir -p "$HOME/.codex" /tmp/agents-skills
+          mkdir -p "$HOME/.codex"
           touch "$HOME/.codex/auth.json"
           chmod 600 "$HOME/.codex/auth.json"
-          echo "AGENTS_SKILLS_DIR=/tmp/agents-skills" >> "$GITHUB_ENV"
       - name: Install Dev Container CLI
         run: npm install --global @devcontainers/cli
       - name: Test Feature
-        run: devcontainer features test --features codex-secure --skip-scenarios .
+        run: devcontainer features test --features codex --skip-scenarios .

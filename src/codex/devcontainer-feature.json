@@ -1,0 +1,40 @@
+{
+  "id": "codex",
+  "version": "1.0.0",
+  "name": "Codex",
+  "description": "Configures a Dev Container for the Codex IDE extension, including its Linux sandbox and WSL authentication sharing.",
+  "documentationURL": "https://github.com/novanmondon/codex-devcontainer-feature/tree/main/src/codex",
+  "capAdd": [
+    "SYS_ADMIN",
+    "SYS_CHROOT",
+    "SETUID",
+    "SETGID",
+    "SYS_PTRACE"
+  ],
+  "securityOpt": [
+    "seccomp=unconfined",
+    "apparmor=unconfined"
+  ],
+  "mounts": [
+    {
+      "source": "codex-home-${devcontainerId}",
+      "target": "/var/lib/codex-home",
+      "type": "volume"
+    },
+    {
+      "source": "${localEnv:HOME}/.codex/auth.json",
+      "target": "/var/lib/codex-home/auth.json",
+      "type": "bind"
+    }
+  ],
+  "containerEnv": {
+    "CODEX_HOME": "/var/lib/codex-home"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "openai.chatgpt"
+      ]
+    }
+  }
+}
