@@ -1,6 +1,6 @@
 {
   "id": "codex",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Codex",
   "description": "Configures a Dev Container for the Codex IDE extension, including its Linux sandbox and WSL authentication sharing.",
   "documentationURL": "https://github.com/novanmondon/codex-devcontainer-feature/tree/main/src/codex",
@@ -33,7 +33,8 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "openai.chatgpt"
+        "openai.chatgpt",
+        "wenbopan.vscode-terminal-osc-notifier"
       ]
     }
   }
