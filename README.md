@@ -22,7 +22,8 @@ CLIを利用する場合は、コンテナ内で `codex login` を実行しま�
 
 ## GitHub MCPのPAT
 
-GitHub MCPの共通設定とPAT登録スクリプトは、[coding-agents](https://github.com/NovanMondon/coding-agents#github-mcp)で管理します。
+GitHub MCPの共通設定とPAT登録スクリプトは `coding-agents` で管理します。
+発行・登録・確認の手順は [GitHub MCPの設定手順](https://github.com/NovanMondon/coding-agents/blob/main/docs/github-mcp.md) を参照してください。
 Codexへのログインとは別に、各Dev Container内でPATを登録してください。
 CLIとVS CodeのCodex拡張は、同じ`CODEX_HOME`のPATを使って接続します。
 
