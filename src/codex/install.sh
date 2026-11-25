@@ -26,9 +26,6 @@ apt-get install -y --no-install-recommends \
   curl
 rm -rf /var/lib/apt/lists/*
 
-bwrap_path="$(command -v bwrap)"
-chmod u+s "$bwrap_path"
-
 # devcontainer の remoteUser を取得する
 remote_user="${_REMOTE_USER:-${_CONTAINER_USER:-root}}"
 if ! id "$remote_user" >/dev/null 2>&1; then

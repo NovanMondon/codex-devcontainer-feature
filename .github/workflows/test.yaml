@@ -17,11 +17,6 @@ jobs:
       - uses: actions/setup-node@v4 # Node <- Dev Container CLI to test the feature
         with:
           node-version: "22"
-      - name: Prepare mock authentication
-        run: |
-          mkdir -p "$HOME/.codex"
-          touch "$HOME/.codex/auth.json"
-          chmod 600 "$HOME/.codex/auth.json"
       - name: Install Dev Container CLI
         run: npm install --global @devcontainers/cli
       - name: Test Feature

@@ -6,10 +6,19 @@ Dev ContainerでCodexを使うための設定を、各リポジトリの`.devcon
 このFeatureは次の設定を行います。
 
 - `bubblewrap`を導入し、CodexのLinux sandboxに必要な権限を設定する
-- codex-homeディレクトリを作成しCODEX_HOMEとして利用する
-- 現在のWSLディストリビューションにある `~/.codex/auth.json` をread/writeでbind mountする
+- Dev Containerごとの永続ボリュームをCODEX_HOMEとして利用する
+- ホストの認証情報はマウントせず、各Dev Container内で個別にログインする
 - VS Code拡張 `openai.chatgpt` をインストールする
 - VS Code拡張 `wenbopan.vscode-terminal-osc-notifier`（Terminal Notification）をインストールする
+
+## 認証
+
+各Dev ContainerのCodex拡張からログインしてください。
+CLIを利用する場合は、コンテナ内で `codex login` を実行します。
+認証情報をホストや別のDev Containerからコピーしないでください。
+
+ファイルに保存した認証情報は、同じ永続ボリュームを使う再構築後も保持されます。
+ボリュームを削除した場合は、再度ログインが必要です。
 
 ## CLIの完了通知
 
