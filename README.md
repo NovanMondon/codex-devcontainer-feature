@@ -20,6 +20,16 @@ CLIを利用する場合は、コンテナ内で `codex login` を実行しま�
 ファイルに保存した認証情報は、同じ永続ボリュームを使う再構築後も保持されます。
 ボリュームを削除した場合は、再度ログインが必要です。
 
+## GitHub MCPのPAT
+
+GitHub MCPの共通設定とPAT登録スクリプトは、[coding-agents](https://github.com/NovanMondon/coding-agents#github-mcp)で管理します。
+Codexへのログインとは別に、各Dev Container内でPATを登録してください。
+CLIとVS CodeのCodex拡張は、同じ`CODEX_HOME`のPATを使って接続します。
+
+PATの保存先は`/var/lib/codex-home/secrets/github-pat`です。
+同じ永続ボリュームを使う再構築後も保持されます。ボリュームを削除した場合は再登録が必要です。
+このFeatureのビルド時にPATを渡す設定は不要です。
+
 ## CLIの完了通知
 
 [Terminal Notification](https://marketplace.visualstudio.com/items?itemName=wenbopan.vscode-terminal-osc-notifier)はホスト側のVS Codeで動作し、コンテナの統合ターミナルから受け取ったOSC 9通知をホストOSに表示します。
