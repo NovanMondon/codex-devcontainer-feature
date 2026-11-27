@@ -1,9 +1,12 @@
 {
   "id": "codex",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "name": "Codex",
   "description": "Configures a Dev Container for the Codex IDE extension, including its Linux sandbox and container-specific persistent storage.",
   "documentationURL": "https://github.com/novanmondon/codex-devcontainer-feature/tree/main/src/codex",
+  "postCreateCommand": "/usr/local/bin/coding-agents sync --automatic --workspace .",
+  "postStartCommand": "/usr/local/bin/coding-agents sync --automatic --workspace .",
+  "postAttachCommand": "/usr/local/bin/coding-agents sync --automatic --workspace .",
   "securityOpt": [
     "seccomp=unconfined"
   ],
@@ -15,7 +18,8 @@
     }
   ],
   "containerEnv": {
-    "CODEX_HOME": "/var/lib/codex-home"
+    "CODEX_HOME": "/var/lib/codex-home",
+    "CODING_AGENTS_FEATURE_VERSION": "1.2.0"
   },
   "customizations": {
     "vscode": {

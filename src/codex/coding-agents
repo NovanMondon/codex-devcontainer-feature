@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+coding_agents_dir="${CODING_AGENTS_USER_DIR:-$HOME}/.local/share/coding-agents"
+
+# 初回は dotfiles の実行順に依存せず取得する。以後は更新済みの共通入口へ委ねる。
+if [ ! -d "$coding_agents_dir/.git" ]; then
+  mkdir -p "$(dirname -- "$coding_agents_dir")"
+  exec 9>"${coding_agents_dir}.bootstrap.lock"
+  flock 9
+  if [ ! -d "$coding_agents_dir/.git" ]; then
+    if [ -e "$coding_agents_dir" ]; then
+      printf 'coding-agents: %s exists and is not a Git repository\n' "$coding_agents_dir" >&2
+      exit 1
+    fi
+    staging_dir="$(mktemp -d "${coding_agents_dir}.XXXXXX")"
+    trap 'rm -rf -- "$staging_dir"' EXIT
+    GIT_TERMINAL_PROMPT=0 git clone --depth 1 --recurse-submodules --shallow-submodules \
+      https://github.com/NovanMondon/coding-agents.git "$staging_dir"
+    mv -- "$staging_dir" "$coding_agents_dir"
+    trap - EXIT
+  fi
+  flock -u 9
+fi
+exec "$coding_agents_dir/bin/coding-agents" "$@"
